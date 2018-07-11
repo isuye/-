@@ -11,7 +11,7 @@ body{
 }
 /*头部格式*/
 header{
-	background-image: url(./img/bg01.png);
+	background-image: url(../img/bg01.png);
 	width: 1600px;
 	height: 990px;
 	margin: 0 auto;
