@@ -1,0 +1,178 @@
+/*全局*/
+*{
+	box-sizing: border-box;
+}
+
+body{
+	display: flex;
+	justify-content: flex-start;
+	height: 100%;
+	background-color: #ffffff;
+	
+
+
+}
+
+/*左栏*/
+.onepart{
+	
+	width: 100px;
+	
+	background-color:#1d2531;
+
+}
+.onepart_img1 {
+	position: fixed;
+	top: 30px;
+	left: 30px;
+}
+
+.onepart_img2{
+	position: fixed;
+	bottom: 10px;
+	left: 40px;
+}
+/*中栏*/
+.twopart{
+	
+	width: 250px;
+	background-color: #222c3c;
+	color: white;
+}
+.twopart ul{
+	border-bottom:1px solid rgba(255,250,250,0.3);
+	line-height: 35px;
+	list-style: none;
+	padding:30px;
+}
+
+
+.icon06{
+	float: right;
+}
+.icon13-16{
+	vertical-align:middle;/*设置元素的垂直对齐*/
+}
+
+/*右栏*/
+.threepart{
+	border:1px solid black;
+	flex:1
+
+}
+.people_name{
+	font-size: 20px;
+	font-weight:bold
+}
+
+/*右栏顶部*/
+.three_one{
+	
+	height: 80px;
+	border-bottom:1px solid black;
+}
+.three_onep1{
+	font-size: 25px;
+	margin-left: 30px;
+
+}
+.three_oneimg1{
+	float: right;
+	padding-right: 180px;
+}
+/*右栏整体下部*/
+.three_two{
+	
+	display: flex;
+	
+}
+/*右栏整体下部左*/
+.three_two01{
+	
+	width: 400px;
+
+
+}
+.three_two01 ul {
+	border-bottom:1px solid rgba(0,0,0,0.4);
+	list-style: none;
+	
+}
+.three_two01_ul01{
+	height: 50px;
+}
+.three_two01 img{
+	float: left;
+
+}
+.three_two01 p{
+	padding-left: 70px;
+	line-height: 10px;
+}
+/*右栏整体下部右*/
+.three_two02{
+	border-left:1px solid black;
+	flex:1;
+	
+
+}
+
+.three_two02 ul{
+	list-style: none;
+
+}
+.three_two02 li{
+	
+	min-height: 55px;
+}
+.three_two02 p{
+	padding-left: 70px;
+}
+
+.title{
+	height: 50px;
+	border-bottom:1px solid black;
+	
+   
+}
+.icon7-11{
+	float:right;
+
+}
+.title img{
+	float:left;
+
+
+}
+
+.people{
+	float: left;
+
+}
+.three_two02 a{
+	display: inline-block;
+	width: 156px;
+	height: 100px;
+
+		
+}
+
+.three_two02 a:hover  img{
+	
+		opacity:0.3;
+}
+.three_two02 a:hover  {
+	background-image: url(./img/pic03.png);
+		
+}
+
+.lastbox {
+	border:1px solid black;
+	height: 58px;
+}
+.lastbox img{
+	
+	
+	float: left;
+
+}
