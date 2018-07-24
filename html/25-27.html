@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+var myDate=new Date();
+console.log(myDate);
+
+function myYear(){
+	var year=myDate.getFullYear();
+	return year+"年";
+}
+function myMonth(){
+	var month=myDate.getMonth()+1;
+	return month+"月";
+}
+function myDay(){
+	var day=myDate.getDate();
+	return day+"日";
+}
+function myWeek(){
+	var i=myDate.getDay();
+	var week=new Array();
+	week[0]="星期日";
+	week[1]="星期一";
+	week[2]="星期二";
+	week[3]="星期三";
+	week[4]="星期四";
+	week[5]="星期五";
+	week[6]="星期六";
+	return week[i];
+}
+function myTime(){
+	var time=myDate.toLocaleTimeString();
+	return time;
+}
+document.write(myYear()+myMonth()+myDay()+myWeek()+myTime());
+
+
+</script>	
+</body>
+</html>
