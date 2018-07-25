@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <input id="email-input" type="text">
+    <ul id="email-sug-wrapper" class="email-sug"></ul>
+</div>
+<script >
+// 用keyup监听用户在输入框的事件(监听按下按钮之后的全部数据)
+
+  
+ 
+// 用keypress监听用户在输入框的事件(监听按下按钮之前的全部数据)
+/*$("input").keypress(function(){
+    console.log($("input").val());
+});*/
+// 用keydown监听用户在输入框的事件
+/*$("input").keydown(function(){
+    console.log($("input").val());
+});*/
+// 用oninput监听用户在输入框的事件
+/*document.getElementById("email-input").oninput=function(){
+	console.log(document.getElementById("email-input").value);
+}*/
+
+
+//inputDown的输入监听
+
+$("input").keyup(function(){
+	getInput();
+	boxList();
+	addBoxList();
+	controlsList();
+	//console.log(getInput());
+	for (var i = 0,l=$("li").length-1; i <=l; i++) {
+	//var i=1;
+    //console.log(i);
+    	(function(i){
+			$("ul li:eq("+i+")").hover(
+   					function(){
+        			$("ul li:eq("+i+")").css("background-color","red");
+  			 		 },
+   					function(){
+       				$("ul li:eq("+i+")").css("background-color","white");
+    				}
+        	 )
+    	})(i);
+		
+	}
+
+	$("li").click(function(){
+	for (var i = 0,l=$("li").length-1; i <=l; i++) {
+	//var i=1;
+    //console.log(i);
+    	(function(i){
+			$("ul li:eq("+i+")").click(function(){          
+			  //console.log($("ul li:eq("+i+")").text());   		
+			  $("input").val($("ul li:eq("+i+")").text());
+			  hideList();
+
+
+				            })
+				
+				
+		}) (i);		
+        				
+  			 		
+   					       	 
+    	 
+		
+	}
+  })
+
+
+})
+
+
+//监听鼠标点击
+
+
+
+
+//获取用户输入
+
+function getInput(){
+ 	$("#email-input").keyup(function(){
+  		$("#email-input").val();
+  		$.trim($("#email-input").val());
+    	//console.log($("#email-input").val());
+    	 
+  	});
+return $.trim($("#email-input").val());
+ }
+//生成提示框中内容
+
+function boxList(){
+    $("ul").empty();
+	var a=getInput();
+	
+	var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+	var li=new Array;
+    
+    //console.log(postfixList[0]);
+    //console.log(c);
+   
+
+     //li[i]="<li>"+b+"@"+postfixList[i]+"</li>";
+      
+	for (var i =0 ; i <= postfixList.length - 1; i++) {	
+
+		 if (a.indexOf("@")!=-1) {
+		 var b=a.substring(0,a.indexOf("@"));
+   		 var c=a.substring(a.indexOf("@")+1);	
+		 li[i]="<li>"+b+"@"+postfixList[i]+"</li>";}
+		else{    
+			li[i]="<li>"+a+"@"+postfixList[i]+"</li>";
+		 }	
+			
+			}
+
+			return li;
+
+		//else{li[i]="<li>"+a+"@"+postfixList[i]+"</li>";}
+		 //console.log(li[i]);		 
+		}
+	
+	
+
+
+//将提示内容添加到ul中
+function addBoxList(){
+	var a=boxList();
+	$("ul").append(a);
+}
+//控制ul的显示/影藏状态
+function controlsList(){
+	if (getInput()=="") {
+		hideList();
+	}
+		else{
+			showList();
+		}
+}
+
+//显示提示框
+function showList(){
+	$("li").show();
+}
+
+//影藏提示框
+function hideList(){
+	$("li").hide();
+}
+//鼠标滑过提示框,提示内容变色
+
+
+
+
+</script>	
+</body>
+</html>
