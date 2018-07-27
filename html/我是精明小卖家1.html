@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+
+<style type="text/css">
+	*{
+		
+	}
+    td{
+    	border:0.5px solid black;
+    	width: 70px;
+    	
+    }
+    
+</style>
+</head>
+
+<body>
+
+<div id="region-radio-wrapper"></div>
+<div id="product-radio-wrapper"></div>
+
+<div id="table-wrapper"></div>
+
+<script type="text/javascript" src="./ife31data.js" ></script>	
+<script>
+
+//生成复选框容器
+var checkboxOne=[
+	{ value:'1',"text":"华东"},
+	{ value:'2',"text":"华南"},
+	{value:'3',"text":"华北"}
+]
+
+var checkboxTwo=[
+	{value:"1","text":"手机"},
+	{value:"2","text":"笔记本"},
+	{value:"3","text":"智能音箱"}
+]	
+
+//调用函数生成复选框
+CheckBox("region-radio-wrapper",checkboxOne);
+CheckBox("product-radio-wrapper",checkboxTwo);	
+//select改变就渲染表格
+$("div").change(function(){
+	$("#table-wrapper table:eq(1)").empty();
+	//tableData(getData());
+	
+	tableData();
+
+})  
+//根据checkedbox的选择获取数据
+function getData(){
+	var reginText=[];
+	var productText=[];
+
+	var allList=document.getElementsByTagName("div");
+
+	var reginList=allList[0].getElementsByTagName("input");
+	var productList=allList[1].getElementsByTagName("input");
+
+	for (var i = 0; i <= reginList.length-1; i++) {
+
+		if (reginList[i].checked) {
+			reginText.push(reginList[i].nextSibling.nodeValue);	
+			//console.log(allList[i].nextSibling.nodeValue);		
+		}
+	}
+	for (var i = 0; i <= productList.length-1; i++) {
+
+		if (productList[i].checked) {
+			productText.push(productList[i].nextSibling.nodeValue);	
+			//console.log(allList[i].nextSibling.nodeValue);		
+		}
+	}
+	
+	//console.log(allText);
+	
+	
+	return{
+     region:reginText,
+     product:productText
+	};
+}
+//渲染新表格	
+        $("#table-wrapper").prepend("<table>");        
+		$("table").prepend("<tr>");	
+		for (var i = 12; i >= -1; i--) {
+			$("tr").prepend("<td>"+i+"月");
+		}
+		$("td:eq(0)").text("商品");
+		$("td:eq(1)").text("地区");
+        $("#table-wrapper").append("<table>");
+
+function tableData(){
+	var data=getData()
+
+	var region=data.region;
+	var product=data.product;
+	var choselist=[];
+
+
+		for (var b=0; b<=sourceData.length-1; b++) {			
+			for (var i=0; i<=sourceData.length-1; i++) { 
+
+					
+
+				
+
+					if (region[i]==sourceData[b].region) {
+						choselist.push(sourceData[b]);
+						 
+						$("table:last").append("<tr>");
+						$("tr:last").append("<td>"+sourceData[b].product);
+						$("tr:last").append("<td>"+sourceData[b].region+"1");
+						for (var c = 0; c <= 11; c++) {
+							$("tr:last").append("<td>"+sourceData[b].sale[c]);
+						}
+					 }	
+				   
+ 					 if (product[i]==sourceData[b].product) { 
+ 					    
+ 					   
+						$("table:last").append("<tr>");
+						$("tr:last").append("<td>"+sourceData[b].product);
+						$("tr:last").append("<td>"+sourceData[b].region+"2");
+						for (var c = 0; c <= 11; c++) {
+							$("tr:last").append("<td>"+sourceData[b].sale[c]);
+						}
+					
+ 					}
+ 						
+ 					for (var d=0 ;d<=choselist.length-1; d++) {
+				         
+						if (product[i]==choselist[d].product) {
+								console.log(choselist);
+                        		console.log(product[i]);
+                        		console.log(choselist[b]);
+                        		console.log(i);
+                        		console.log(b);
+							$("#table-wrapper table:eq(1)").empty();
+							$("table:last").append("<tr>");
+							$("tr:last").append("<td>"+choselist[d].product);
+							$("tr:last").append("<td>"+choselist[d].region+"3");
+							for (var c = 0; c <= 11; c++) {
+								$("tr:last").append("<td>"+choselist[d].sale[c]);
+							}						
+						}
+					}	 					
+					
+			}			         
+		}
+									
+}
+	
+
+//生成复选框插入html
+
+function CheckBox(a,b){
+	$("#"+a).append("<input  type='checkbox' checkbox-type='all'>全选");
+	for (var i =0 ; i <= b.length - 1; i++) {
+		b[i].text;
+		$("#"+a).append("<input type='checkbox' value="+b[i].value+">"+b[i].text);
+	}
+	$("#"+a).click(function(){
+       if ($("#"+a+" :first").prop('checked')==true) {
+       			$("#"+a+" input").prop("checked","true");
+      			$("#"+a+" input[checkbox-type!='all']").attr("disabled","disabled");  
+      	}   					
+      	else{
+      		$("#"+a+" :input").removeAttr("disabled");      					
+      	}
+    })
+}
+
+
+
+
+//console.log(regin);
+//console.log(product);
+			//console.log("2"+sourceData[b].region);
+					//    console.log("3"+region[i]);
+					//    console.log("1"+sourceData[b].product);
+					//    console.log("4"+product[i]);
+					//    console.log(i);
+					 //    console.log(b);
+					 //   console.log(" ");	
+</script>
+</body>
+</html>
