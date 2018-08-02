@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<style type="text/css">
+	*{
+		box-sizing: border-box;
+		
+		padding: 0;
+	}
+    #table-wrapper input{
+    	
+    	width: 80px;
+    	height: 30px;   	
+    }
+ 	td{
+ 		border:1px solid black;
+ 		width: 100px;
+ 		height: 50px;
+ 		text-align: center;
+ 	}
+    
+</style>
+</head>
+<body >
+<p id="all-wrapper">
+<div id="region-radio-wrapper" ></div>
+<div id="product-radio-wrapper"></div>
+</p>
+<!-- <div id="svg-wrapper" style="float:left; width: 500px;height: 400px;">
+	<svg id="svgCont" width="500" height="400" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
+</div >
+<div  ><canvas id="canvas" width="500" height="400"></canvas></div>	 -->
+
+
+<div id="table-wrapper"></div>
+
+
+<script type="text/javascript" src="./ife31data.js" ></script>	
+<script type="text/javascript" src="./bar.js" ></script>
+<script type="text/javascript" src="./line.js" ></script>
+<script type="text/javascript" src="./localStorage.js" ></script>
+<script type="text/javascript" src="./mouse.js" ></script>			
+
+<script>
+//生成复选框容器
+var checkboxOne=[
+	{ value:'1',"text":"华东"},
+	{ value:'2',"text":"华南"},
+	{value:'3',"text":"华北"}
+]
+
+var checkboxTwo=[
+	{value:"1","text":"手机"},
+	{value:"2","text":"笔记本"},
+	{value:"3","text":"智能音箱"}
+]	
+
+//调用函数生成复选框
+CheckBox("region-radio-wrapper",checkboxOne);
+CheckBox("product-radio-wrapper",checkboxTwo);	
+//select改变就渲染表格
+$("#product-radio-wrapper").change(function(){
+	$("#table-wrapper").empty();
+
+	if( localStorage.localData != 'undefined') {
+        tableData(JSON.parse(localStorage.localData));
+    }
+    else  {tableData(sourceData);}
+
+	})
+
+$("#region-radio-wrapper").change(function(){
+	$("#table-wrapper").empty();
+
+	
+		if( localStorage.localData != 'undefined') {
+        tableData(JSON.parse(localStorage.localData));
+         }
+         else  {tableData(sourceData);}
+  
+
+   /* var trTable=document.getElementById("table-wrapper");
+	var trData=trTable.getElementsByTagName("input");
+	
+    trTable.onmouseout=function(){图表代码,暂时不用
+    	for (let i =1;i<=trData.length-1;i++) {
+    		var line=trData[i].innerText.split("	");
+    		var lineDate=line.slice(-11.-1);			
+ 			draw(lineDate);
+    	}
+    }
+
+    for (let i =1;i<=trData.length-1;i++) {
+     	trData[i].onmouseover=function(){   		
+    		var line=trData[i].innerText.split("	");
+    		var lineDate=line.slice(-11.-1);
+    		var ctx = document.getElementById('canvas').getContext('2d');
+    		ctx.clearRect(0,0,500,500);
+ 			histogram(lineDate);
+ 			draw(lineDate);
+    	}   
+    }*/	
+
+})  
+
+//点击确认按钮后保存数据到本地
+
+
+
+
+
+
+
+//根据checkedbox的选择获取数据
+function getData(){
+	var reginText=[];
+	var productText=[];
+	var allList=document.getElementsByTagName("div");
+	var reginList=allList[0].getElementsByTagName("input");
+	var productList=allList[1].getElementsByTagName("input");
+	for (var i = 0; i <= reginList.length-1; i++) {
+		if (reginList[i].checked) {
+			reginText.push(reginList[i].nextSibling.nodeValue);			
+		}
+	}
+	for (var i = 0; i <= productList.length-1; i++) {
+		if (productList[i].checked) {
+			productText.push(productList[i].nextSibling.nodeValue);		
+		}
+	}	
+	return{
+     region:reginText,
+     product:productText
+	};
+}
+//渲染新表格	    
+function tableData(firstData){
+	var data=getData()
+	var region=data.region;
+	var product=data.product;
+	var choseRegion=[];
+	var choseProduct=[];
+	if (region.length>0&&product.length==0) {
+		$("#table-wrapper").prepend("<table>");        
+		$("table").prepend("<tr>");	
+		$("tr").prepend("<td>地区<td>商品<td>一月<td>二月<td>三月<td>四月<td>五月<td>六月<td>七月<td>八月<td>九月<td>十月<td>十一月<td>十二月");
+		for(var a in region) { 
+			for (var i in firstData) { 
+				if (firstData[i].region==region[a]) {
+					$("table").append("<tr>");
+					$("tr:last").append("<td >"+firstData[i].region);
+					$("tr:last").append("<td>"+firstData[i].product);
+					for (var c = 0; c <= 11; c++) {
+						$("tr:last").append("<td>"+firstData[i].sale[c]);
+					}						
+				}
+			}
+		}		
+	}
+	if (region.length==0&&product.length>0) {
+		$("#table-wrapper").prepend("<table>");        
+		$("table").prepend("<tr>");	
+		$("tr").prepend("<td>商品<td>地区<td>一月<td>二月<td>三月<td>四月<td>五月<td>六月<td>七月<td>八月<td>九月<td>十月<td>十一月<td>十二月");
+		for(var i in firstData) { 
+			for (var b in product) {
+				if (product[b]==firstData[i].product) {
+					$("table:last").append("<tr>");
+					$("tr:last").append("<td >"+firstData[i].product);
+					$("tr:last").append("<td>"+firstData[i].region);
+					for (var c = 0; c <= 11; c++) {
+						$("tr:last").append("<td>"+firstData[i].sale[c]);
+					}
+				}								
+			}
+		}																							
+	}
+	if (region.length>0&&product.length>0) {
+		$("#table-wrapper").prepend("<table>");        
+		$("table").prepend("<tr>");	
+		$("tr").prepend("<td>商品<td>地区<td>一月<td>二月<td>三月<td>四月<td>五月<td>六月<td>七月<td>八月<td>九月<td>十月<td>十一月<td>十二月");
+			for(var i in firstData) { 	
+				for (var a in region) { 
+					if (region[a]==firstData[i].region) {
+							choseRegion.push(firstData[i]);											
+					}
+				}	
+			}	
+		$("#table-wrapper table:eq(1)").empty();
+		for (var e in product) {
+			for (var d in choseRegion ) {							
+				if (product[e]==choseRegion[d].product) {
+					$("table:last").append("<tr>");
+					$("tr:last").append("<td >"+choseRegion[d].product);
+					$("tr:last").append("<td>"+choseRegion[d].region);
+						for (var c = 0; c <= 11; c++) {
+							$("tr:last").append("<td>"+choseRegion[d].sale[c]);
+						}
+				}
+			}
+		}
+								
+	}																						
+
+} 			
+//生成复选框插入html
+function CheckBox(a,b){
+	$("#"+a).append("<input  type='checkbox' checkbox-type='all'>全选");
+	for (var i =0 ; i <= b.length - 1; i++) {
+		b[i].text;
+		$("#"+a).append("<input type='checkbox' value="+b[i].value+">"+b[i].text);
+	}
+	$("#"+a).click(function(){
+        if ($("#"+a+" :first").prop('checked')==true) {
+       		$("#"+a+" input").prop("checked","true");
+      		$("#"+a+" input[checkbox-type!='all']").attr("disabled","disabled");  
+      	}   					
+      	else{
+      		$("#"+a+" :input").removeAttr("disabled");      					
+      	}
+    })
+}
+
+</script>
+</body>
+</html>
