@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MIS系统</title>
+	<link rel="stylesheet" type="text/css" href="./style1.css">
+</head>
+<body  >
+<!-- 数据选择区 -->
+<div id="region-radio-wrapper"></div>
+<div id="product-radio-wrapper"></div>
+
+
+<!-- 表格展示区 -->
+<div id="table-wrapper"></div>
+
+<!-- 图表展示区:柱状图/折线图 -->
+<div id="bar-graph">
+
+<svg id="barSVG" width=100% height=100% version="1.1" >
+
+</svg>
+</div>
+<div id="broken-line-graph">
+<canvas id="canvas" width="600" height="400"></canvas>
+</div>
+
+
+
+<!-- 表格数据/选择区数据 -->
+<script src="./originaldata.js"></script>
+<!-- 根据选择获得数据 -->
+<script src="./getData.js"></script>
+<!-- 选择区 -->
+<script src="./checkbox.js"></script>
+<!-- 根据选择展示数据 -->
+<script src="./newtable.js"></script>
+<!-- 修改数据 -->
+<script src="./editTd.js"></script>
+<!-- 柱状图 -->
+<script src="./barGraph.js"></script>
+<!-- 折线图 -->
+<script src="./brokenLineGraph.js"></script>
+<!-- hans -->
+<script src="./hash.js"></script>
+<!--页面入口主流程代码  -->
+<script src="./app.js"></script>
+
+	
+</body>
+</html>
